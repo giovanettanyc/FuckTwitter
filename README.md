@@ -19,9 +19,9 @@ This script works only on desktop Chromium.
 
 ## Guide
 
-FIRST You should copy the entire raw content of the main.js into a text editor of your choice. Don't directly paste it into the console as it will be hard to edit the Options correctly!
+FIRST You should copy the entire raw content of the fucktwitter.js into a text editor of your choice. Don't directly paste it into the console as it will be hard to edit the Options correctly!
 
-- Copy the entire [main.js](main.js) raw content into a text editor. Do NOT paste it directly into the console, as editing the options will be rather difficult.
+- Copy the entire [fucktwitter.js](fucktwitter.js) raw content into a text editor. Do NOT paste it directly into the console, as editing the options will be rather difficult.
 - Go to https://x.com/
 - Open the DevTools with <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>I</kbd> or <kbd>F12</kbd>
 - Got to the "Network" tab in DevTools
