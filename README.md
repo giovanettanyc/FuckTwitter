@@ -1,15 +1,12 @@
-# Intro
+# Intro & Prereq's
 
-Some of us tweet a bit too much. Especially my fellow DSA folks (shoutout: `dsausa.org/join`), but just everyone in general–Twitter is the braindump app! Too bad its so public with no easy, accessible way to get rid of your history. This is especially for y'all that want a clean slate on your socials without nuking your whole account. Other services cost money and require giving your data to some proprietary third party. Twitter stores a lot of data, so I heavily don't recommend doing that, just use this! *Especially if you're a victim of stalking, have been doxxed, or had uncomfortable amounts of publicity, this is for you, and if you worry about that! This is also for you*
+Some of us tweet a bit too much. Especially my fellow DSA comrades (shoutout: https://dsausa.org/join), but just everyone in general–Twitter is the braindump app! Too bad its so public with no easy, accessible way to get rid of your history. This is especially for y'all that want a clean slate on your socials without nuking your whole account. Other services cost money and require giving your data to some proprietary third party. Twitter stores a lot of data, so I heavily don't recommend doing that, just use this! *Especially if you're a victim of stalking, have been doxxed, or had uncomfortable amounts of publicity, this is for you, and if you worry about that! This is also for you*
 
 This script *should* not delete anything you do not want, I'm not responsible for any issues. Nothing bad will probably happen besides your console screaming at you, but I heavily suggest getting an archive of your data first so you at least have a copy of that cool cat you posted once if you forgot to put it in the `ignore` section.
 
 Modification of Kadse's modification of Lyfhael's "DeleteTweets." Updated to fix API shenanigans and such. I make no guarantee I'll actively develop this because I'm too busy. 
 
 The code is provided "AS IS" with no warranties. I claim no Copyright; The code remains, as far as I am concerned, Lyfhael's intellectual property. 
-
-
-# Prerequisites
 
 This script works only on desktop Chromium.
 > [!WARNING]
