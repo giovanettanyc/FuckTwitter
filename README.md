@@ -1,15 +1,17 @@
-# Disclaimer
+# Intro
 
-This script *should* not delete anything you do not want, I use it rather often, but I'm not responsible for any issues. Use at your own risk if the 1% chance of failure concerns you.
+Some of us tweet a bit too much. Especially my fellow DSA folks (shoutout: `dsausa.org/join`), but just everyone in general–Twitter is the braindump app! Too bad its so public with no easy, accessible way to get rid of your history. This is especially for y'all that want a clean slate on your socials without nuking your whole account. Other services cost money and require giving your data to some proprietary third party. Twitter stores a lot of data, so I heavily don't recommend doing that, just use this! *Especially if you're a victim of stalking, have been doxxed, or had uncomfortable amounts of publicity, this is for you, and if you worry about that! This is also for you*
 
-I, Kadse, heavily modified the script heavily from Lyfhael's "DeleteTweets" (Found at https://github.com/Lyfhael/DeleteTweets) since it stopped working. I am not a JS-Expert, so there is a risk of issues, be aware of that. 
+This script *should* not delete anything you do not want, I'm not responsible for any issues. Nothing bad will probably happen besides your console screaming at you, but I heavily suggest getting an archive of your data first so you at least have a copy of that cool cat you posted once if you forgot to put it in the `ignore` section.
+
+Modification of Kadse's modification of Lyfhael's "DeleteTweets." Updated to fix API shenanigans and such. I make no guarantee I'll actively develop this because I'm too busy. 
 
 The code is provided "AS IS" with no warranties. I claim no Copyright; The code remains, as far as I am concerned, Lyfhael's intellectual property. 
 
 
 # Prerequisites
 
-This script works only on Google Chrome on a desktop computer (tested on Windows 11 and Linux).
+This script works only on desktop Chromium.
 > [!WARNING]
 > This script will **not** work in any Firefox Browser or fork of it!
 
@@ -29,6 +31,7 @@ FIRST You should copy the entire raw content of the main.js into a text editor o
 - Find the request in the Network tab starting with `UserTweetsAndReplies` and click to open that request, scroll to "Request Headers".
 - Find the `authorization` value (should start with `Bearer AAAAAAAAA...`), copy it, and paste it into the `var authorization` variable in your text editor.
 - Find the `X-Client-Transaction-Id` value, copy it, and paste it into the `var client_tid` variable in your text editor.
+- In the `Request URL` there is that part after `graphql` between two Slashes. Copy only the Part between the Slashes and set it into the `var override_resource` variable.  
 - In your text editor set the variable `var username` to your accounts handle (without the @!)
 - Now you can change the options and filters in the section below to your liking (explained with the comments in the code).
 - And then you copy then entire content of the text editor and paste it into the console of your DevTools.
@@ -85,8 +88,8 @@ Now you can copy/paste the script in the console, press Enter, and wait for the 
 
 # Support
 
-I allow tickets in German but prefer English if you can speak it, so everyone can understand.  
-Feel free to ping me on Discord about a new Issue, I am not that much on GitHub: arm_11813  
+I allow tickets in Italian but prefer English so everyone can understand and it can show up if people search for issues.   
+Email me if it needs to be fixed. Again, can't guarantee I'll maintain this. Fork to your heart's content.  
 
 # FAQ
 
