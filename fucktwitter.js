@@ -12,11 +12,11 @@ var authorization = "Bearer ***";
 // Replace *** by X-Client-Transaction-Id value
 var client_tid = "***";
 
- // Replace 'Username' with your X.com Username (But WITHOUT the @ !!!)
-var username = "***";
-
 // In this Request URL there is that part after "graphql" between two Slashes. Copy only the Part between the Slashes and replace '***'.
 var override_resource = "***";
+
+ // Replace 'Username' with your X.com Username (But WITHOUT the @ !!!)
+var username = "***";
 
 // After you fill out the delete options, paste this shit into your browser console and voila! 
 // You might have to redo it a few times because that demon Elon Musk will rate limit you.
