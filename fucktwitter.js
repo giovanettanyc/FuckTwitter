@@ -1,14 +1,31 @@
-var authorization = "Bearer ***"; // Replace *** by your Authentication Value, usually starts with a lot of AAAAAAAAAA's (It is screaming because of my bad code)
-var client_tid = "***"; // Replace *** by X-Client-Transaction-Id value
-var username = "Username"; // Replace 'Username' with your X.com Username (But WITHOUT the @ !!!)
+// ==UserScript==
+// @name        FuckTwitter
+// @version     1.0
+// @author      GiovanettaNYC
+// @description 03/12/2025, 21:32:14, fix of https://github.com/NietzscheKadse/XeetEntfernierer with updated API shenanigans
+// @github      https://github.com/giovanettanyc/FuckTwitter
+// ==/UserScript==
 
-var override_resource = ""; // If you get a 404 or 403 it could be that X changed the Query string again. Look into the Readme to see how you can obtain the correct one, put it in this variable. Otherwise leave empty.
+// Replace *** by your Authentication Value, usually starts with a lot of AAAAAAAAAA's (It is screaming because of my bad code)
+var authorization = "Bearer ***";
+
+// Replace *** by X-Client-Transaction-Id value
+var client_tid = "***";
+
+ // Replace 'Username' with your X.com Username (But WITHOUT the @ !!!)
+var username = "***";
+
+// In this Request URL there is that part after "graphql" between two Slashes. Copy only the Part between the Slashes and replace '***'.
+var override_resource = "***";
+
+// After you fill out the delete options, paste this shit into your browser console and voila! 
+// You might have to redo it a few times because that demon Elon Musk will rate limit you.
 
 // YOUR DELETION OPTIONS / FILTERS:
 var delete_options = {
     // "true": Unretweets all your Retweets (respects other filters, so not *all* necessarily)
     // "false": Keeps all your retweets on your profile and won't unretweet/delete them.
-    "unretweet": false,
+    "unretweet": true,
 
     // This option is so that you won't accidentally delete your pinned tweet. If you DO want to delete it, set this option to "false"
     "do_not_remove_pinned_tweet": true,
@@ -25,9 +42,10 @@ var delete_options = {
 
     // If you want to keep any tweets no matter what, get their IDs (The Number in the URL Bar when you clicked on it) and put them here. They won't be touched (i hope).
     "tweets_to_ignore": [
-        "00000000000000",
-        "111111111111111",
-        "222222222222"
+"0000000000000000000",
+"0000000000000000000"
+
+
     ],
 
     // Only deletes Tweets AFTER/BEFORE the set date (excluding it)
@@ -43,9 +61,8 @@ var delete_options = {
 
     // Do you want to import the Tweets from an X Archive? (UNTESTED! Might not work!)
     "from_archive": false,
-	    
-    // This option probably doesn't work as of May 2025, but if you try it and it fails please open an Issue in this Git project so I can debug it. I have no old tweets myself.
-    "old_tweets": false, //PROBABLY WONT WORK!!!!
+
+    "old_tweets": false, //Don't touch this shit bro if you put 'true' it breaks the whole thing//
 };
 
 /*
@@ -109,15 +126,17 @@ async function fetch_tweets(cursor, retry = 0) {
     var variable = "";
     var feature = "";
     var field_toggles = `&fieldToggles=%7B%22withArticlePlainText%22%3Afalse%7D`;
-    if (delete_options["old_tweets"] == false) {
+if (delete_options["old_tweets"] == false) {
 	// Variable & Feature Parameters got changed in April 2025. We have to include a lot more of them now.
 	// UPDATE: 2 New Variables. In June "payments_enabled" got added and in June "responsive_web_grok_community_note_auto_translation_is_enabled" There are also many other variables that got added, but those don't throw errors when left out.
-        variable = `?variables=%7B%22userId%22%3A%22${user_id}%22%2C%22count%22%3A${count}%2C${final_cursor}%22includePromotedContent%22%3Atrue%2C%22withCommunity%22%3Atrue%2C%22withVoice%22%3Atrue%7D`;
-        feature = `&features=%7B%22responsive_web_grok_imagine_annotation_enabled%22%3Atrue%2C%22rweb_video_screen_enabled%22%3Afalse%2C%22rweb_xchat_enabled%22%3Afalse%2C%22payments_enabled%22%3Afalse%2C%22responsive_web_grok_community_note_auto_translation_is_enabled%22%3Afalse%2C%22profile_label_improvements_pcf_label_in_post_enabled%22%3Atrue%2C%22rweb_tipjar_consumption_enabled%22%3Atrue%2C%22verified_phone_label_enabled%22%3Afalse%2C%22creator_subscriptions_tweet_preview_api_enabled%22%3Atrue%2C%22responsive_web_graphql_timeline_navigation_enabled%22%3Atrue%2C%22responsive_web_graphql_skip_user_profile_image_extensions_enabled%22%3Afalse%2C%22premium_content_api_read_enabled%22%3Afalse%2C%22communities_web_enable_tweet_community_results_fetch%22%3Atrue%2C%22c9s_tweet_anatomy_moderator_badge_enabled%22%3Atrue%2C%22responsive_web_grok_analyze_button_fetch_trends_enabled%22%3Afalse%2C%22responsive_web_grok_analyze_post_followups_enabled%22%3Atrue%2C%22responsive_web_jetfuel_frame%22%3Afalse%2C%22responsive_web_grok_share_attachment_enabled%22%3Atrue%2C%22articles_preview_enabled%22%3Atrue%2C%22responsive_web_edit_tweet_api_enabled%22%3Atrue%2C%22graphql_is_translatable_rweb_tweet_is_translatable_enabled%22%3Atrue%2C%22view_counts_everywhere_api_enabled%22%3Atrue%2C%22longform_notetweets_consumption_enabled%22%3Atrue%2C%22responsive_web_twitter_article_tweet_consumption_enabled%22%3Atrue%2C%22tweet_awards_web_tipping_enabled%22%3Afalse%2C%22responsive_web_grok_show_grok_translated_post%22%3Afalse%2C%22responsive_web_grok_analysis_button_from_backend%22%3Afalse%2C%22creator_subscriptions_quote_tweet_preview_enabled%22%3Afalse%2C%22freedom_of_speech_not_reach_fetch_enabled%22%3Atrue%2C%22standardized_nudges_misinfo%22%3Atrue%2C%22tweet_with_visibility_results_prefer_gql_limited_actions_policy_enabled%22%3Atrue%2C%22longform_notetweets_rich_text_read_enabled%22%3Atrue%2C%22longform_notetweets_inline_media_enabled%22%3Atrue%2C%22responsive_web_grok_image_annotation_enabled%22%3Atrue%2C%22responsive_web_enhance_cards_enabled%22%3Afalse%7D&fieldToggles=%7B%22withArticlePlainText%22%3Afalse%7D`;
-    } else {
-        variable = `?variables=%7B%22userId%22%3A%22${user_id}%22%2C%22count%22%3A${count}%2C${final_cursor}%22includePromotedContent%22%3Atrue%2C%22payments_enabled%22%3Afalse%2C%22responsive_web_grok_community_note_auto_translation_is_enabled%22%3Afalse%2C%22withQuickPromoteEligibilityTweetFields%22%3Atrue%2C%22withVoice%22%3Atrue%2C%22withV2Timeline%22%3Atrue%7D`;
-        feature = `&features=%7B%22responsive_web_graphql_exclude_directive_enabled%22%3Atrue%2C%22verified_phone_label_enabled%22%3Afalse%2C%22creator_subscriptions_tweet_preview_api_enabled%22%3Atrue%2C%22responsive_web_graphql_timeline_navigation_enabled%22%3Atrue%2C%22responsive_web_graphql_skip_user_profile_image_extensions_enabled%22%3Afalse%2C%22tweetypie_unmention_optimization_enabled%22%3Atrue%2C%22responsive_web_edit_tweet_api_enabled%22%3Atrue%2C%22graphql_is_translatable_rweb_tweet_is_translatable_enabled%22%3Atrue%2C%22view_counts_everywhere_api_enabled%22%3Atrue%2C%22longform_notetweets_consumption_enabled%22%3Atrue%2C%22responsive_web_twitter_article_tweet_consumption_enabled%22%3Afalse%2C%22tweet_awards_web_tipping_enabled%22%3Afalse%2C%22freedom_of_speech_not_reach_fetch_enabled%22%3Atrue%2C%22standardized_nudges_misinfo%22%3Atrue%2C%22tweet_with_visibility_results_prefer_gql_limited_actions_policy_enabled%22%3Atrue%2C%22longform_notetweets_rich_text_read_enabled%22%3Atrue%2C%22longform_notetweets_inline_media_enabled%22%3Atrue%2C%22responsive_web_media_download_video_enabled%22%3Afalse%2C%22responsive_web_enhance_cards_enabled%22%3Afalse%7D`;
-    }
+        variable = `?variables=%7B%22userId%22%3A%22${user_id}%22%2C%22count%22%3A${count}%2C${final_cursor}%22includePromotedContent%22%3Atrue%2C%22withCommunity%22%3Atrue%2C%22withVoice%22%3Atrue%7D`;
+        // ADDED: "responsive_web_profile_redirect_enabled":false,
+        feature = `&features=%7B%22responsive_web_grok_imagine_annotation_enabled%22%3Atrue%2C%22rweb_video_screen_enabled%22%3Afalse%2C%22rweb_xchat_enabled%22%3Afalse%2C%22payments_enabled%22%3Afalse%2C%22responsive_web_grok_community_note_auto_translation_is_enabled%22%3Afalse%2C%22profile_label_improvements_pcf_label_in_post_enabled%22%3Atrue%2C%22rweb_tipjar_consumption_enabled%22%3Atrue%2C%22verified_phone_label_enabled%22%3Afalse%2C%22creator_subscriptions_tweet_preview_api_enabled%22%3Atrue%2C%22responsive_web_graphql_timeline_navigation_enabled%22%3Atrue%2C%22responsive_web_graphql_skip_user_profile_image_extensions_enabled%22%3Afalse%2C%22premium_content_api_read_enabled%22%3Afalse%2C%22communities_web_enable_tweet_community_results_fetch%22%3Atrue%2C%22c9s_tweet_anatomy_moderator_badge_enabled%22%3Atrue%2C%22responsive_web_grok_analyze_button_fetch_trends_enabled%22%3Afalse%2C%22responsive_web_grok_analyze_post_followups_enabled%22%3Atrue%2C%22responsive_web_jetfuel_frame%22%3Afalse%2C%22responsive_web_grok_share_attachment_enabled%22%3Atrue%2C%22articles_preview_enabled%22%3Atrue%2C%22responsive_web_edit_tweet_api_enabled%22%3Atrue%2C%22graphql_is_translatable_rweb_tweet_is_translatable_enabled%22%3Atrue%2C%22view_counts_everywhere_api_enabled%22%3Atrue%2C%22longform_notetweets_consumption_enabled%22%3Atrue%2C%22responsive_web_twitter_article_tweet_consumption_enabled%22%3Atrue%2C%22tweet_awards_web_tipping_enabled%22%3Afalse%2C%22responsive_web_grok_show_grok_translated_post%22%3Afalse%2C%22responsive_web_grok_analysis_button_from_backend%22%3Afalse%2C%22creator_subscriptions_quote_tweet_preview_enabled%22%3Afalse%2C%22freedom_of_speech_not_reach_fetch_enabled%22%3Atrue%2C%22standardized_nudges_misinfo%22%3Atrue%2C%22tweet_with_visibility_results_prefer_gql_limited_actions_policy_enabled%22%3Atrue%2C%22longform_notetweets_rich_text_read_enabled%22%3Atrue%2C%22longform_notetweets_inline_media_enabled%22%3Atrue%2C%22responsive_web_grok_image_annotation_enabled%22%3Atrue%2C%22responsive_web_profile_redirect_enabled%22%3Afalse%2C%22responsive_web_enhance_cards_enabled%22%3Afalse%7D&fieldToggles=%7B%22withArticlePlainText%22%3Afalse%7D`;
+    } else {
+        variable = `?variables=%7B%22userId%22%3A%22${user_id}%22%2C%22count%22%3A${count}%2C${final_cursor}%22includePromotedContent%22%3Atrue%2C%22payments_enabled%22%3Afalse%2C%22responsive_web_grok_community_note_auto_translation_is_enabled%22%3Afalse%2C%22withQuickPromoteEligibilityTweetFields%22%3Atrue%2C%22withVoice%22%3Atrue%2C%22withV2Timeline%22%3Atrue%7D`;
+        // ADDED: "responsive_web_profile_redirect_enabled":false,
+        feature = `&features=%7B%22responsive_web_graphql_exclude_directive_enabled%22%3Atrue%2C%22verified_phone_label_enabled%22%3Afalse%2C%22creator_subscriptions_tweet_preview_api_enabled%22%3Atrue%2C%22responsive_web_graphql_timeline_navigation_enabled%22%3Atrue%2C%22responsive_web_graphql_skip_user_profile_image_extensions_enabled%22%3Afalse%2C%22tweetypie_unmention_optimization_enabled%22%3Atrue%2C%22responsive_web_edit_tweet_api_enabled%22%3Atrue%2C%22graphql_is_translatable_rweb_tweet_is_translatable_enabled%22%3Atrue%2C%22view_counts_everywhere_api_enabled%22%3Atrue%2C%22longform_notetweets_consumption_enabled%22%3Atrue%2C%22responsive_web_twitter_article_tweet_consumption_enabled%22%3Afalse%2C%22tweet_awards_web_tipping_enabled%22%3Afalse%2C%22freedom_of_speech_not_reach_fetch_enabled%22%3Atrue%2C%22standardized_nudges_misinfo%22%3Atrue%2C%22tweet_with_visibility_results_prefer_gql_limited_actions_policy_enabled%22%3Atrue%2C%22longform_notetweets_rich_text_read_enabled%22%3Atrue%2C%22longform_notetweets_inline_media_enabled%22%3Atrue%2C%22responsive_web_media_download_video_enabled%22%3Afalse%2C%22responsive_web_profile_redirect_enabled%22%3Afalse%2C%22responsive_web_enhance_cards_enabled%22%3Afalse%7D`;
+    }
 
     if (delete_options["field_toggles"] == false)  {
     	var final_url = `${base_url}${variable}${feature}`;
