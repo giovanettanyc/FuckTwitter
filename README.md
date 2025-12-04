@@ -42,21 +42,6 @@ Everything above the green line is required. Between the green and red lines the
 > [!WARNING]
 > Editing anything below the red line will probably result in the script not working or behaving in unforseen ways!
 
-## If you encounter 403/404 errors
-Before opening an Issue, try to change the "override resource" variable I specified in the config options.
-
-When you look into the "UserTweetsAndReplies" request, you should see that massive request URL right at the top:  
-<img width="821" height="63" alt="image" src="https://github.com/user-attachments/assets/b25a10fc-2c51-4d99-89c9-8e3c90eeb154" />
-  
-In this Request URL there is that part after "graphql" between two Slashes. Copy only the Part between the Slashes (As highlightet in the image, in this Example it would be WJdO9AzTVxm7lmjLgreeEA ) and set it into the "override_resource" variable.  
-<img width="375" height="50" alt="image" src="https://github.com/user-attachments/assets/9c4b6d5f-47a3-4870-87cd-82f17dbe7d0a" />
-
-Now it should work!
-
-Note that with the new Rate Limits and X's stupid handling of these, it is normal to encounter multiple 404 errors in a deletion. Thats completely normal. In that case just wait for the next try. Only if multiple tries return 404/403 you have to troubleshoot.  
-If really nothing works, contact me on Discord: arm_11813  
-I am more active there than here.  
-
 ## Filtering / Options
 Now that you filled in the authentication details, you can filter which tweets to delete in the `delete_options` Array. It is right under the Authentication Variables you just filled in.  
   
@@ -87,6 +72,20 @@ Now you can copy/paste the script in the console, press Enter, and wait for the 
 
 I allow tickets in Italian but prefer English so everyone can understand and it can show up if people search for issues.   
 Email me if it needs to be fixed. Again, can't guarantee I'll maintain this. Fork to your heart's content.  
+
+## If you encounter 403/404 errors
+Before opening an Issue, you might not have put in the "override resource" correctly.
+
+When you look into the "UserTweetsAndReplies" request, you should see that massive request URL right at the top:  
+<img width="821" height="63" alt="image" src="https://github.com/user-attachments/assets/b25a10fc-2c51-4d99-89c9-8e3c90eeb154" />
+  
+In this Request URL there is that part after "graphql" between two Slashes. Copy only the Part between the Slashes (As highlightet in the image, in this Example it would be WJdO9AzTVxm7lmjLgreeEA ) and set it into the "override_resource" variable.  
+<img width="375" height="50" alt="image" src="https://github.com/user-attachments/assets/9c4b6d5f-47a3-4870-87cd-82f17dbe7d0a" />
+
+Now it should work!
+
+Note that with the new Rate Limits and X's stupid handling of these, it is normal to encounter multiple 404 errors in a deletion. Thats completely normal. In that case just wait for the next try. Only if multiple tries return 404/403 you have to troubleshoot.  
+If really nothing works, email me. 
 
 # FAQ
 
