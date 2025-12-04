@@ -8,7 +8,7 @@ Modification of Kadse's modification of Lyfhael's "DeleteTweets." Updated to fix
 
 The code is provided "AS IS" with no warranties. I claim no Copyright; The code remains, as far as I am concerned, Lyfhael's intellectual property. 
 
-This script works only on desktop Chromium.
+This script works only on desktop Chromium-based browsers (aka, Chrome, Edge, Brave, etc on Desktop Windows, Linux, MacOS, and so on.)
 > [!WARNING]
 > This script will **not** work in any Firefox Browser or fork of it!
 
